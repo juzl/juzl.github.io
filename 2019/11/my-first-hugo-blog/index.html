@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        使用 Hugo &#43; GitHub Pages &#43; Travis CI 搭建个人博客 - Ju&#39;s Blog
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="明确关键点，通过最直接的方式使用 Hugo 搭建自己的博客~" />
+  <meta name="generator" content="Hugo 0.59.0 with theme pure" />
+  <title>使用 Hugo &#43; GitHub Pages &#43; Travis CI 搭建个人博客 - Ju&#39;s Blog</title>
+  
+
+  <link rel="stylesheet" href="https://juzl.github.io/css/style.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <meta property="og:title" content="使用 Hugo &#43; GitHub Pages &#43; Travis CI 搭建个人博客" />
+<meta property="og:description" content="明确关键点，通过最直接的方式使用 Hugo 搭建自己的博客~" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://juzl.github.io/2019/11/my-first-hugo-blog/" />
+<meta property="article:published_time" content="2019-11-07T16:06:33+08:00" />
+<meta property="article:modified_time" content="2019-11-07T16:06:33+08:00" />
+<meta itemprop="name" content="使用 Hugo &#43; GitHub Pages &#43; Travis CI 搭建个人博客">
+<meta itemprop="description" content="明确关键点，通过最直接的方式使用 Hugo 搭建自己的博客~">
+
+
+<meta itemprop="datePublished" content="2019-11-07T16:06:33&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-07T16:06:33&#43;08:00" />
+<meta itemprop="wordCount" content="1526">
+
+
+
+<meta itemprop="keywords" content="Hugo,Github Pages,Travis CI," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Hugo &#43; GitHub Pages &#43; Travis CI 搭建个人博客"/>
+<meta name="twitter:description" content="明确关键点，通过最直接的方式使用 Hugo 搭建自己的博客~"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+  
+
+  <body class="main-center" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="" target="_blank">
+            <img class="img-circle img-rotate" src="https://juzl.github.io/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">Zongliang Zhu</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">Thinking &amp; Sharing</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>enjoy~</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://juzl.github.io/categories/hugo/" class="category-list-link">hugo</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://juzl.github.io/tags/github-pages/" class="tag-list-link">github-pages</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://juzl.github.io/tags/hugo/" class="tag-list-link">hugo</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://juzl.github.io/tags/travis-ci/" class="tag-list-link">travis-ci</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://juzl.github.io/2019/11/my-first-hugo-blog/" class="title">使用 Hugo &#43; GitHub Pages &#43; Travis CI 搭建个人博客</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-11-07 16:06:33 &#43;0800 &#43;0800" itemprop="datePublished">2019-11-07</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+  <aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+    <div class="slimContent">
+      <nav id="toc" class="article-toc">
+        <h3 class="toc-title">文章目录</h3>
+        <div class="toc-content always-active"><nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#hugo-的安装与使用-windows-环境下">Hugo 的安装与使用 (Windows 环境下)</a>
+<ul>
+<li><a href="#准备工作">准备工作</a></li>
+<li><a href="#安装-hugo">安装 Hugo</a></li>
+<li><a href="#hugo-常用命令与目录结构">hugo 常用命令与目录结构</a></li>
+<li><a href="#创建与配置-hugo-博客">创建与配置 hugo 博客</a></li>
+</ul></li>
+<li><a href="#部署到-github-pages-与-travis-ci-自动部署">部署到 Github Pages 与 Travis CI 自动部署</a>
+<ul>
+<li><a href="#建立代码仓库">建立代码仓库</a></li>
+<li><a href="#申请-token">申请 Token</a></li>
+<li><a href="#设置-travis-ci">设置 Travis CI</a></li>
+<li><a href="#添加配置文件">添加配置文件</a></li>
+</ul></li>
+<li><a href="#参考文章">参考文章：</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+      </nav>
+    </div>
+  </aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2019/11/my-first-hugo-blog/"
+    >使用 Hugo &#43; GitHub Pages &#43; Travis CI 搭建个人博客</a
+  >
+</h1>
+
+      <div class="article-meta">
+        <span class="article-date">
+  <i class="icon icon-calendar-check"></i>
+<a href="https://juzl.github.io/2019/11/my-first-hugo-blog/" class="article-date">
+  <time datetime="2019-11-07 16:06:33 &#43;0800 &#43;0800" itemprop="datePublished">2019-11-07</time>
+</a>
+</span><span class="article-category">
+  <i class="icon icon-folder"></i>
+  <a class="article-category-link" href="/categories/hugo/"> Hugo </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+    <a class="article-tag-link" href="/tags/hugo/"> Hugo </a>
+    <a class="article-tag-link" href="/tags/github-pages/"> Github Pages </a>
+    <a class="article-tag-link" href="/tags/travis-ci/"> Travis CI </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/11/my-first-hugo-blog/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计:1526字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长:4分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      <p>关于什么是 Hugo 、为什么选择 Hugo 和 Github Pages，可以通过底部的参考文章或者网上搜索资料了解，这些都不是本文的重点，本文的主要目的在于将整个搭建过程的重要节点进行梳理，帮助大家完整快速的部署自己的博客。</p>
+
+<p>Hugo 版本：v0.59.0</p>
+
+<p>Hugo 官方地址：<a href="https://gohugo.io/">https://gohugo.io/</a></p>
+
+<p>Github 地址：<a href="https://github.com/gohugoio/hugo">https://github.com/gohugoio/hugo</a></p>
+
+<p>本次项目搭建的仓库地址：<a href="https://github.com/juzl/my-blog">https://github.com/juzl/my-blog</a></p>
+
+<h2 id="hugo-的安装与使用-windows-环境下">Hugo 的安装与使用 (Windows 环境下)</h2>
+
+<h3 id="准备工作">准备工作</h3>
+
+<ul>
+<li>安装 Git</li>
+<li>注册 Github 账户</li>
+<li>下载 Hugo ，官方地址：<a href="https://github.com/gohugoio/hugo/releases">https://github.com/gohugoio/hugo/releases</a></li>
+</ul>
+
+<h3 id="安装-hugo">安装 Hugo</h3>
+
+<ul>
+<li><p>新建 <code>Hugo\bin</code> 和 <code>Hugo\Sites</code> 文件夹，将解压出来的可执行文件 (格式为 .exe) 放到 <code>bin</code> 目录下。</p></li>
+
+<li><p>添加环境变量，<code>PATH</code> 下新增 <code>hugo.exe</code> 所在目录。</p></li>
+
+<li><p>测试安装是否成功，命令 <code>hugo version</code>，出现如下类似提示表示成功。</p>
+
+<pre><code class="language-bash">Hugo Static Site Generator v0.59.0-1DD0C69C windows/amd64 BuildDate: 2019-10-21T09:40:37Z
+</code></pre></li>
+</ul>
+
+<h3 id="hugo-常用命令与目录结构">hugo 常用命令与目录结构</h3>
+
+<table>
+<thead>
+<tr>
+<th align="left">命令名称</th>
+<th align="left">参数</th>
+<th>功能描述</th>
+<th>样例</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">hugo new site ${SITENAME}</td>
+<td align="left">${SITENAME}，站点名称</td>
+<td>创建一个新的 hugo 站点，并自动初始化</td>
+<td>hugo new site myblog</td>
+</tr>
+
+<tr>
+<td align="left">hugo server</td>
+<td align="left">-D，编译 draft 内容，新 blog 默认是 draft 模式，不会生成内容，加上 -D 强制生成 blog 内容，主要用于本地预览</td>
+<td>启动一个本地托管 server，可以预览 blog 内容</td>
+<td>hugo server -D</td>
+</tr>
+
+<tr>
+<td align="left">hugo</td>
+<td align="left">无</td>
+<td>编译静态内容进行发布</td>
+<td>hugo</td>
+</tr>
+</tbody>
+</table>
+
+<p>当使用 <code>hugo new site</code> 命令时，hugo 会自动生成一个标准目录结构，如下：</p>
+
+<pre><code>#blog
+#├── archetypes 
+#│   └── default.md # 新建 blog 的模板文件可修改
+#├── config.toml # 网站配置文件
+#├── content # blog 内容文件
+#├── data
+#├── layouts
+#├── static # 静态资源文件
+#└── themes # 下载的主题目录
+</code></pre>
+
+<h3 id="创建与配置-hugo-博客">创建与配置 hugo 博客</h3>
+
+<pre><code class="language-bash"># Hugo/Sites 目录下创建新的项目
+hugo new site myblog
+
+# 进入项目目录
+cd myblog
+
+# 安装主题，官网提供了主题区
+git clone https://github.com/xiaoheiAh/hugo-theme-pure themes/pure
+
+# 一般情况下，将主题的 config.toml 文件复制到项目根目录覆盖原文件，根据主题配置相应参数
+# 注意，config.toml 文件中的 baseURL 地址应修改为你的 Github Pages 地址
+
+# 创建第一篇 blog
+hugo new post/my-first-blog.md
+
+# 预览测试，在浏览器 http://localhost:1313 端访问本地服务
+hugo server -D
+
+# 测试没有问题后可以使用下面的命令进行发布，由于将要使用 Travis CI 的自动部署功能，所以本阶段准备暂时结束
+hugo
+</code></pre>
+
+<h2 id="部署到-github-pages-与-travis-ci-自动部署">部署到 Github Pages 与 Travis CI 自动部署</h2>
+
+<blockquote>
+<p>注意：本次搭建工作采用两个项目仓库的方式进行自动部署</p>
+</blockquote>
+
+<h3 id="建立代码仓库">建立代码仓库</h3>
+
+<p>确保 GitHub 上有这两个仓库，用来部署博客的 <code>username.github.io</code> 和 用来存放源码的 <code>myblog</code> ，自动部署的流程为：</p>
+
+<pre><code class="language-mermaid">graph TD
+A[本地编写 blog 并测试] --&gt;|push| B(myblog 仓库)
+B --&gt; |检测到变化| C{Travis CI 执行自动部署}
+C --&gt; |push| D(username.github.io 仓库)
+</code></pre>
+
+<h3 id="申请-token">申请 Token</h3>
+
+<p>在 <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a> 页面申请 Token，填写任意名字的注释，只需要勾选 <code>repo</code> 内容，点击页面最下方的  <code>Generate token</code> 生成 <code>Token</code>。</p>
+
+<p><img src="https://i.loli.net/2019/11/07/wupgsJ6byijOxev.png" alt="" /></p>
+
+<p>复制这个  <code>Token</code>，为设置 Travis 做准备。</p>
+
+<blockquote>
+<p>注意：离开这个页面之后无法再次查该 <code>Token</code></p>
+</blockquote>
+
+<p><img src="https://i.loli.net/2019/11/07/dURmlkjbaCwD5VE.png" alt="" /></p>
+
+<h3 id="设置-travis-ci">设置 Travis CI</h3>
+
+<p>打开 Travis CI 官方网站 <a href="https://travis-ci.com/](https://travis-ci.com/)，">https://travis-ci.com/](https://travis-ci.com/)，</a> 使用 GitHub 帐号登录，选择需要托管的仓库。</p>
+
+<p><img src="https://i.loli.net/2019/11/07/H7UutMlCoj2EpOs.png" alt="" /></p>
+
+<p>点击 <code>Settings</code> ，在 <code>Environment Variables</code> 中填写刚才复制的 ·<code>Token</code>，变量名任意。</p>
+
+<p><img src="https://i.loli.net/2019/11/07/4Tpt8Y2FUukyiE3.png" alt="" /></p>
+
+<h3 id="添加配置文件">添加配置文件</h3>
+
+<p>在 myblog 目录下新增 <code>.travis.yml</code> 作为自动部署的配置脚本，其中 <code>${GITHUB_TOKEN}</code> 和 <code>${GITHUB_REF}</code> 可以根据自定义的变量名进行替换。</p>
+
+<pre><code class="language-yaml">language: go
+
+go:
+  - &quot;1.12&quot;
+
+install:
+  # 安装最新的hugo
+  - wget https://github.com/gohugoio/hugo/releases/download/v0.59.0/hugo_0.59.0_Linux-64bit.deb
+  - sudo dpkg -i hugo*.deb
+
+script:
+  # 运行hugo命令
+  - hugo
+
+after_script:
+  # 部署
+  - cd ./public
+  - git init
+  - git add .
+  - git commit -m &quot;Update Blog By TravisCI With Build $TRAVIS_BUILD_NUMBER&quot;
+  # Github Pages
+  - git push --force --quiet &quot;https://${GITHUB_TOKEN}@${GITHUB_REF}&quot; master:master
+
+env:
+ global:
+   # Github Pages
+   - GITHUB_REF: github.com/juzl/juzl.github.io
+</code></pre>
+
+<p>添加完配置文件后，将 <code>myblog</code> 项目 push 至 Github 仓库，等待 Travis CI 的自动部署完成。</p>
+
+<p><img src="https://i.loli.net/2019/11/07/4SRnwQzgCj7l9UH.png" alt="" /></p>
+
+<blockquote>
+<p>注意：建议在项目中添加  <code>.gitignore</code> 文件，忽略不需要上传的目录。</p>
+</blockquote>
+
+<pre><code>public/*
+</code></pre>
+
+<p>浏览器输入 <code>https://username.github.io</code> 访问搭建完成的博客。</p>
+
+<p><img src="https://i.loli.net/2019/11/08/Cb72URKG3Lhuajl.png" alt="" /></p>
+
+<h2 id="参考文章">参考文章：</h2>
+
+<ol>
+<li>使用 Hugo + GitHub Pages 搭建个人博客 <a href="https://mogeko.me/2018/018/">https://mogeko.me/2018/018/</a></li>
+<li>使用 Travis CI 自动部署 Hugo 博客 <a href="https://mogeko.me/2018/028/">https://mogeko.me/2018/028/</a></li>
+<li>使用hugo搭建个人blog <a href="https://blog.voidmain.guru/posts/2019-07-01-blog-with-hugo/">https://blog.voidmain.guru/posts/2019-07-01-blog-with-hugo/</a></li>
+<li>如何利用 GitHub Pages 和 Hugo 轻松搭建个人博客？<a href="https://www.jianshu.com/p/ca04631f4438">https://www.jianshu.com/p/ca04631f4438</a></li>
+<li>使用 Hugo 搭建博客 <a href="https://segmentfault.com/a/1190000012975914">https://segmentfault.com/a/1190000012975914</a></li>
+<li>Hugo搭建博客&lt;二&gt;:使用Travis.ci自动部署到github pages和coding.net pages <a href="https://tainzhi.github.io/post/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A22/">https://tainzhi.github.io/post/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A22/</a></li>
+</ol>
+    </div>
+    <div class="article-footer">
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <div class="bar-right">
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/juzl" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://juzl.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2019  -
+    2019
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+   window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/rust.min.js"></script>
+<script type="text/javascript"
+   src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script>
+hljs.configure({
+  tabReplace: '    ', 
+  classPrefix: ''     
+                      
+})
+hljs.initHighlightingOnLoad();
+</script>
+<script type="text/javascript" src="https://juzl.github.io/js/application.js"></script>
+<script type="text/javascript" src="https://juzl.github.io/js/plugin.js"></script>
+<script>
+      (function (window) {
+          var INSIGHT_CONFIG = {
+              TRANSLATION: {
+                  POSTS: '文章',
+                  PAGES: '页面',
+                  CATEGORIES: '分类',
+                  TAGS: '标签',
+                  UNTITLED: '(未命名)',
+              },
+              ROOT_URL: 'https:\/\/juzl.github.io',
+              CONTENT_URL: 'https:\/\/juzl.github.io\/searchindex.json ',
+          };
+          window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+      })(window);
+      </script>
+<script type="text/javascript" src="https://juzl.github.io/js/insight.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '92e3034b46d1a4a7fdf6',
+        clientSecret: '03c7dc369830a7667c65b99e432f184270d5b3ce',
+        repo: 'juzl.github.io',
+        owner: 'juzl',
+        admin: ['juzl'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+  </body>
+</html>
